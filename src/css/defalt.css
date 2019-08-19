@@ -11,7 +11,9 @@
 *::before{
     box-sizing: border-box;
 }
-
+input{
+  font: inherit;
+}
 
 ul,ol{
     list-style: none;
@@ -28,17 +30,19 @@ body{
   .page{
       display: flex;
       height: 100vh;
+    
 
   }
   .page>aside{
       
     width: 200px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    /* margin-right: 20px; */
 
   }
   .page>main{
       flex-grow: 1;
-    border: 1px solid green;
+     /* border: 1px solid green; */
 
   }
 
@@ -94,4 +98,44 @@ body{
   }
  .clickable{
     cursor: pointer;
+  }
+  /* main */
+
+
+  .form{
+    /* border: 1px solid #ddd; */
+    font-size: 14px;
+    margin-left: 20px;
+   
+
+  }
+  .form>.row{
+    margin: 10px 0;
+    
+
+  }
+  .page>main{
+    padding-top: 20px;
+    padding-left: 40px; 
+    background-color: #d4d4d4;
+  }
+  .form input[type=text]{
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    height: 30px;
+
+  }
+  .page>main>.form{
+
+  }
+  .form input[type=button],
+  .form input[type=submit],
+  .form button{
+    height: 30px;
+    padding-left: 10px; 
+    padding-right: 10px; 
+    border-radius: 5px;
+    margin-left: 30px;
+
   }
