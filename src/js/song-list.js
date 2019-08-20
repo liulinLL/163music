@@ -50,17 +50,25 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
-            this.bindEventHub()
-            this.getAllSongs()
-            this.bindEvents()
+            this.bindEventHub()//eventHub事件
+            this.getAllSongs()//获取所有歌曲显示到歌曲列表
+            this.bindEvents()//点击歌曲列表事件
           
         },
         bindEvents(){
             $(this.view.el).on('click','li',(e)=>{
-               this.view.activeItem(e.currentTarget)
-               let songId=e.currentTarget.getAttribute('data-song-id')
-               window.eventHub.emit('select',{id:songId})
-             
+               this.view.activeItem(e.currentTarget)//实现点击某个歌曲，出现高亮
+               let songId=e.currentTarget.getAttribute('data-song-id')//得到数据库中歌曲的id
+               let data
+               let songs=this.model.data.songs//得到model中的歌曲
+               for(let i=0;i<songs.length;i++){//遍历songs，如果有歌曲和当前点击歌曲id一样，就将该歌曲的信息加入data中，用于之后的操作
+                   if(songs[i].id===songId){
+                       data=songs[i]
+                       break
+                   }
+               }
+               let object=JSON.parse(JSON.stringify(data))//深拷贝
+               window.eventHub.emit('select',object)//
             })
            
             
@@ -74,6 +82,23 @@
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
 
+            })
+
+            
+            window.eventHub.on('new',()=>{
+                this.view.clearActive()//订阅new，new发布时会触发clearActive,会清除li的active 高亮
+
+            })
+
+            window.eventHub.on('update',(song)=>{//收到数据库中最新更新的数据
+                let songs=this.model.data.songs
+                for(let i=0;i<songs.length;i++){//如果传过来跟新的id与model中id一样，就更新当前songs的所有数据
+                    if(songs[i].id===song.id){
+                        Object.assign(songs[i],song)
+                           // songs[i]=song
+                    }
+                }
+                this.view.render(this.model.data)//然后渲染到页面上
             })
 
         },
