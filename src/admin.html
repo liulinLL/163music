@@ -21,7 +21,6 @@
 
       <div id="songList-container">
       </div>
-
       <div class="uploadArea">
         <div id="uploadContainer" class="draggable">
           <div id="uploadButton" class="clickable">
@@ -35,22 +34,69 @@
     </main>
 
   </div>
+<style>
+
+@keyframes loading{
+  0%{
+    transform: scale(1.0)
+  }
+  100%{
+    transform: scale(0.1)
+  }
+
+}
+
+.site-loading{
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background:rgba(0,0,0,0.2);
+  /* background: red; */
+
+}
+.site-loading.active{
+  visibility:visible;
+}
+.site-loading::before{
+  content: '';
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: green;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-top: -50px;
+  border-radius: 50%;
+  animation: loading 1s infinite alternate-reverse linear;
+}
+</style>
 
 
-
-  <div id="uploadStatus">
+  <div id="siteLoading" class="site-loading">
+    
   </div>
+
   <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
   <script src="./js/initializers/av.js"></script>
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="../vendors/moxie.js"></script>
   <script src="../node_modules/plupload/js/plupload.min.js"></script>
   <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+ 
   <script src="./js/event-hub.js"></script>
+  <script src="./js/initializers/loading.js"></script>
   <script src="./js/song-form.js"></script>
   <script src="./js/new-song.js"></script>
   <script src="./js/song-list.js"></script>
   <script src="./js/upload-song.js"></script>
+  
+  
  
 
 

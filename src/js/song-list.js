@@ -8,22 +8,29 @@
         render(data) {
             let $el=$(this.el)
             $el.html(this.template)//先放入ul
-            let {songs}=data
+            let {songs,selectSongId}=data
             let liList=songs.map((song)=>{
-                 return $('<li></li>').text(song.name).attr('data-song-id',song.id)//创建li标签，内容是传入data中的name
-            })
+                 let $li=$('<li></li>').text(song.name).attr('data-song-id',song.id)//创建li标签，内容是传入data中的name
+                 if(song.id===selectSongId)
+                 {//解决之前当更新数据时，会重新创建li标签，导致原来的li中的active消失，高亮就消失了，
+                    //解决办法，将被点击的元素的id记录在model中，然后在渲染时给绑定的元素添加一个active
+                     $li.addClass('active')
+                 }
+                    return $li
+                
+                })
             $el.find('ul').empty()//找到ul,清空ul
             liList.map((domLi)=>{//将创建的Li标签插入到ul中
                 $el.find('ul').append(domLi)
             })
         },
-        activeItem(li){
-            let $li=$(li)
-            $li.addClass('active')
-            .siblings('.active').removeClass('active')
+        // activeItem(li){
+        //     let $li=$(li)
+        //     $li.addClass('active')
+        //     .siblings('.active').removeClass('active')
 
-        }
-        ,
+        // }
+        // ,
         clearActive() {
             $(this.el).find('.active').removeClass('active')
         }
@@ -32,7 +39,9 @@
         data: {
             songs: [
               
-            ]
+            ],
+            selectSongId:undefined
+
         },
         find(){//查找数据库中歌曲返回歌曲信息，成功后调用then方法
             var query=new AV.Query('Song');
@@ -57,8 +66,10 @@
         },
         bindEvents(){
             $(this.view.el).on('click','li',(e)=>{
-               this.view.activeItem(e.currentTarget)//实现点击某个歌曲，出现高亮
+              // this.view.activeItem(e.currentTarget)//实现点击某个歌曲，出现高亮
                let songId=e.currentTarget.getAttribute('data-song-id')//得到数据库中歌曲的id
+               this.model.data.selectSongId=songId//更新model
+               this.view.render(this.model.data)
                let data
                let songs=this.model.data.songs//得到model中的歌曲
                for(let i=0;i<songs.length;i++){//遍历songs，如果有歌曲和当前点击歌曲id一样，就将该歌曲的信息加入data中，用于之后的操作

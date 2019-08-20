@@ -32,13 +32,17 @@
                         });
                     },
                     'BeforeUpload': function (up, file) {
+                        window.eventHub.emit('beforeUpload')
+                      
                         // 每个文件上传前,处理相关的事情
                     },
                     'UploadProgress': function (up, file) {
+                        
                         // 每个文件上传时,处理相关的事情
-                        uploadStatus.textContent = "上传中"
+                       
                     },
                     'FileUploaded': function (up, file, info) {
+                       
                         // 每个文件上传成功后,处理相关的事情
                         // 其中 info.response 是文件上传成功后，服务端返回的json，形式如
                         // {
@@ -46,10 +50,11 @@
                         //    "key": "gogopher.jpg"
                         //  }
                         // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+                        window.eventHub.emit('afterUpload')
                         var domain = up.getOption('domain');
                         var res = JSON.parse(info.response);
                         var sourceLink = 'http://' + domain + '/' + encodeURIComponent(res.key);
-                        uploadStatus.textContent = sourceLink + ' ' + res.key;
+                        
                         // console.log(sourceLink)
 
                         //当文件上传成功时，会触发upload，并且发送一个data
