@@ -1,3 +1,6 @@
+window.x='open'
+
+
 {
     let view = {
         el: '.uploadArea',
