@@ -39,8 +39,8 @@
         var query=new AV.Query('Song');
         return query.find().then((songs)=>{
            this.data.songs=songs.map((song)=>{
-            return{id:song.id,...song.attributes}
-           })//将数据库中歌曲的信息保存在最新歌曲的model中，用于下次渲染页面时使用
+            return Object.assign({id:song.id},song.attributes)
+           })
            return songs
         })
     }
