@@ -1,0 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+*::after{
+    box-sizing: border-box;
+}
+*::before{
+    box-sizing: border-box;
+}
+input{
+  font: inherit;
+}
+
+ul,ol{
+    list-style: none;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+body{
+    font-size: 12px;
+    line-height: 1.5;
+}
+  
+  .page{
+      display: flex;
+      height: 100vh;
+    
+
+  }
+  .page>aside{
+      
+    width: 200px;
+    /* border: 1px solid red; */
+    /* margin-right: 20px; */
+
+  }
+  .page>main{
+      flex-grow: 1;
+     /* border: 1px solid green; */
+
+  }
+
+
+  /* aside */
+.page>aside{
+  display: flex;
+  flex-direction: column;/*垂直布局*/
+}
+
+
+  .newSong{
+    text-align: center;
+    padding: 10px;
+  }
+
+  .newSong.active{
+    background: #d4d4d4;
+  }
+
+  #songList-container{
+    flex-grow: 1;/*让上传区域移到底部*/
+
+  }
+  .songList{
+    
+    border-top: 1px solid #999;
+    text-align: left;
+   
+
+  }
+  .songList>li{
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    
+    /* margin:0 10px 0 10px; */
+  }
+  .songList>li.active{
+    background: #d4d4d4;
+  }
+  
+  .uploadArea{
+
+
+
+
+  }
+  .draggable{
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    border-radius: 4px;
+    flex-direction: column;
+  }
+ .clickable{
+    cursor: pointer;
+  }
+  /* main */
+
+
+  .form{
+    /* border: 1px solid #ddd; */
+    font-size: 14px;
+    margin-left: 20px;
+   
+
+  }
+  .form > .row{
+    margin: 20px 0;
+    display: flex;
+  }
+  .form > .row > label{
+    width: 4em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 5px;
+  }
+
+  /* div:nth-child(5){
+    float: right;
+   
+  } */
+  .lyrics{
+    float: right;
+    /* border: 4px red solid; */
+    /* width: 800px; */
+    margin-right:800px;
+
+  }
+  .lyrics>div{
+    text-align: center;
+    /* width: 500px; */
+    /* margin: 0 auto; */
+    /* border:  1px purple solid; */
+  }
+  .lyrics>textarea {
+    border: 1px black solid;
+    width: 500px;
+    height: 200px;
+  }
+
+  
+  .page>main{
+    padding-top: 20px;
+    padding-left: 40px; 
+    background-color: #d4d4d4;
+  }
+  .form input[type=text]{
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    height: 30px;
+  }
+  .page>main>.form{
+
+  }
+  .form input[type=button],
+  .form input[type=submit],
+  .form button{
+    height: 30px;
+    padding-left: 10px; 
+    padding-right: 10px; 
+    border-radius: 5px;
+    margin-left: 30px;
+
+  }
+
+
+  /* loading*/
+   @keyframes loading{
+    0%{
+      transform: scale(1.0)
+    }
+    100%{
+      transform: scale(0.1)
+    }
+  
+  }
+  
+  .site-loading{
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background:rgba(0,0,0,0.2);
+    pointer-events: none;
+    /* background: red; */
+  
+  }
+  .site-loading.active{
+    visibility:visible;
+  }
+  .site-loading::before{
+    content: '';
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-top: -50px;
+    border-radius: 50%;
+    animation: loading 1s infinite alternate-reverse linear;
+  }
