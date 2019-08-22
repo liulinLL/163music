@@ -5,7 +5,12 @@
       this.$el = $(this.el)
     },
     template: `
-      
+    <div class="lyrics">
+    <div>
+      歌词
+    </div>
+      <textarea name="lyrics">__lyrics__</textarea>
+  </div>
       <form class="form">
 
         <div class="row">
@@ -27,15 +32,21 @@
             外链
           </label>
             <input  name="url" type="text" value="__url__">
-          
+        </div>
+        <div class="row">
+          <label>
+            封面
+          </label>
+            <input  name="cover" type="text" value="__cover__">
         </div>
         <div class="row">
             <button type="submit">保存</button>
           </div>
       </form>
+    
         `,
     render(data = {}) {
-      let placeholders = ['name', 'url','singer']
+      let placeholders = ['name', 'url','singer','id','cover','lyrics']
       let html = this.template
       placeholders.map((string) => {
         {
@@ -63,7 +74,9 @@
       name: '',
       singer: '',
       url: '',
-      id: ''
+      id: '',
+      cover:'',
+      lyrics:''
 
     },
     update(data){//更新数据库中的数据
@@ -71,6 +84,9 @@
       song.set('name',data.name);
       song.set('singer',data.singer);
       song.set('url',data.url);
+      song.set('cover',data.cover);
+      song.set('lyrics',data.lyrics);
+      
       return song.save().then((response)=>{
           Object.assign(this.data,data)
           return response//返回最新的值
@@ -86,6 +102,8 @@
       song.set('name', data.name);
       song.set('singer', data.singer);
       song.set('url', data.url);
+      song.set('cover',data.cover);
+      song.set('lyrics',data.lyrics);
       // 将对象保存到云端
       return song.save().then((newSong)=>{
         // 成功保存之后，执行其他逻辑
@@ -103,7 +121,10 @@
           id:id,
           name:attributes.name,
           singer:attributes.singer,
-          url:attributes.url
+          url:attributes.url,
+          cover:attributes.cover,
+          lyrics:attributes.lyrics
+
         })
         // Object.assign(this.data,)
         // console.log(newSong);
@@ -140,10 +161,10 @@
         this.view.render(this.model.data)
       })
 
-      
+    
     },
     save(){
-      let needs = "name singer url".split(' ')
+      let needs = "name singer url cover lyrics".split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()
@@ -162,7 +183,7 @@
 
     },
     update(){
-      let needs = "name singer url".split(' ')
+      let needs = "name singer url cover lyrics".split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()

@@ -114,11 +114,42 @@ body{
    
 
   }
-  .form>.row{
-    margin: 10px 0;
-    
+  .form > .row{
+    margin: 20px 0;
+    display: flex;
+  }
+  .form > .row > label{
+    width: 4em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 5px;
+  }
+
+  /* div:nth-child(5){
+    float: right;
+   
+  } */
+  .lyrics{
+    float: right;
+    /* border: 4px red solid; */
+    /* width: 800px; */
+    margin-right:800px;
 
   }
+  .lyrics>div{
+    text-align: center;
+    /* width: 500px; */
+    /* margin: 0 auto; */
+    /* border:  1px purple solid; */
+  }
+  .lyrics>textarea {
+    border: 1px black solid;
+    width: 500px;
+    height: 200px;
+  }
+
+  
   .page>main{
     padding-top: 20px;
     padding-left: 40px; 
@@ -129,7 +160,6 @@ body{
     border-radius: 5px;
     border: 1px solid #ddd;
     height: 30px;
-
   }
   .page>main>.form{
 
